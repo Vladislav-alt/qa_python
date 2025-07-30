@@ -26,6 +26,10 @@ class TestBooksCollector:
         collector.add_new_book("Книга без жанра")
         assert collector.get_book_genre("Книга без жанра") == ""
 
+    def test_get_book_genre_returns_correct_genre(self, collector):
+        collector.books_genre = {"Тестовая книга": "Фантастика"}
+        assert collector.get_book_genre("Тестовая книга") == "Фантастика"
+
     def test_age_rated_books_not_in_children_list(self, collector):
         collector.add_new_book("Детская книга")
         collector.add_new_book("Страшная книга")
