@@ -79,3 +79,23 @@ class TestBooksCollector:
     def test_add_non_existent_book_to_favorites(self, collector):
         collector.add_book_in_favorites("Несуществующая книга")
         assert "Несуществующая книга" not in collector.get_list_of_favorites_books()
+
+    def test_get_books_genre_returns_all_books(self, collector):
+        collector.add_new_book("Книга 1")
+        collector.add_new_book("Книга 2")
+        books_genre = collector.get_books_genre()
+        assert len(books_genre) == 2
+        assert "Книга 1" in books_genre
+        assert "Книга 2" in books_genre
+        assert books_genre["Книга 1"] == ""
+        assert books_genre["Книга 2"] == ""
+
+    def test_get_list_of_favorites_books_returns_all_favorites(self, collector):
+        collector.add_new_book("Книга 1")
+        collector.add_new_book("Книга 2")
+        collector.add_book_in_favorites("Книга 1")
+        collector.add_book_in_favorites("Книга 2")
+        favorites = collector.get_list_of_favorites_books()
+        assert len(favorites) == 2
+        assert "Книга 1" in favorites
+        assert "Книга 2" in favorites
